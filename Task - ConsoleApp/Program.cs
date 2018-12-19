@@ -6,8 +6,37 @@ namespace Task___ConsoleApp
     {
         static void Main(string[] args)
         {
+            // varibles
+            string error = "Enter the correct number! ";
+
             //MAIN PANEL
             MainPanel();
+
+            do
+            {
+                // user choise input
+                string choise = Console.ReadLine();
+
+                //Cases
+                switch (choise)
+                {
+                    case "1":
+                        // 1. FizzBuzz
+                        break;
+                    case "2":
+                        // 2. DeepDive
+                        break;
+                    case "3":
+                        // 3. DrownItDown
+                        break;
+                    case "4":
+                        //4 Exit
+                        break;
+                    default:
+                        Console.WriteLine(error);
+                        break;
+                }
+            } while (true);
         }
 
         // Main Panel View
