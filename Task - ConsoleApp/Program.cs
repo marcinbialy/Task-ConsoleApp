@@ -6,6 +6,7 @@ namespace Task___ConsoleApp
 {
     class Program
     {
+        private List<string> list = new List<string>(); // list to catch created folders
 
         static void Main(string[] args)
         {
@@ -14,8 +15,8 @@ namespace Task___ConsoleApp
             string selectMethod = "Choose the method number: ";
             int number;
             string input;
+            Program p = new Program();
             
-
             //MAIN PANEL
             MainPanel();
 
@@ -35,17 +36,22 @@ namespace Task___ConsoleApp
                             FizzBuzz(number);
                             Console.WriteLine(selectMethod);
                         }
-                        else Console.Write(error + backToMainMenu);
+                        else { Console.WriteLine(error);
+                               Console.Write(backToMainMenu);
+                        }
                         break;
                     case "2":
                         Console.Write("Enter the number of folders to create: ");
                         input = Console.ReadLine();
                         if (int.TryParse(input, out number) && number <= 5)
                         {
-                            DeepDive(number);
+                            p.DeepDive(number);
                             Console.Write(selectMethod);
                         }
-                        else Console.WriteLine(error + "Remember max 5 folders. " + backToMainMenu);
+                        else {
+                            Console.WriteLine(error + "Remember max 5 folders. ");
+                            Console.Write(backToMainMenu);
+                        }
                         break;
                     case "3":
                         // 3. DrownItDown
@@ -92,22 +98,23 @@ namespace Task___ConsoleApp
         }
 
         //2. DeepDive
-        public static void DeepDive(int number)
+        public void DeepDive(int number)
         {
-            
+            list.Clear(); // clear the list before repeat the method
+
             if (!Directory.Exists(FullFilePath()))
             {
                 DirectoryInfo folder = new DirectoryInfo(FullFilePath()); // info about main path
 
                 Directory.CreateDirectory(folder.ToString()); // if 1 folder than create
-                
+                list.Add(folder.ToString());
 
                 for (int i = 1; i < number; i++) // create subfolders in main folder, if more than one folder
                 {
                     var v = folder.CreateSubdirectory(Guid.NewGuid().ToString());
                     string newpath = Path.GetFullPath(v.ToString());
                     folder = new DirectoryInfo(newpath);
-                    
+                    list.Add(v.ToString());
                 }
             }
             Console.WriteLine("Done! " + number + " folder/s have been created. Check your desktop.");
