@@ -8,6 +8,10 @@ namespace Task___ConsoleApp
         {
             // varibles
             string error = "Enter the correct number! ";
+            string backToMainMenu = "You back to main menu. Choose the method number: ";
+            string selectMethod = "Choose the method number: ";
+            int number;
+            string input;
 
             //MAIN PANEL
             MainPanel();
@@ -21,7 +25,14 @@ namespace Task___ConsoleApp
                 switch (choise)
                 {
                     case "1":
-                        // 1. FizzBuzz
+                        Console.Write("Select a number in the range of 1-1000: ");
+                        input = Console.ReadLine();
+                        if (int.TryParse(input, out number) && number <= 1000)
+                        {
+                            FizzBuzz(number);
+                            Console.WriteLine(selectMethod);
+                        }
+                        else Console.Write(error + backToMainMenu);
                         break;
                     case "2":
                         // 2. DeepDive
@@ -30,7 +41,7 @@ namespace Task___ConsoleApp
                         // 3. DrownItDown
                         break;
                     case "4":
-                        //4 Exit
+                        Exit();
                         break;
                     default:
                         Console.WriteLine(error);
@@ -52,6 +63,28 @@ namespace Task___ConsoleApp
             Console.Write("Selected number: ");
         }
 
+        //1. FizzBuzz
+        public static void FizzBuzz(int number)
+        {
+            if (number % 2 == 0 & number % 3 == 0)
+            {
+                Console.WriteLine("FizzBuzz");
+            }
+            else if (number % 2 == 0)
+            {
+                Console.WriteLine("Fizz");
+            }
+            else if (number % 3 == 0)
+            {
+                Console.WriteLine("Buzz");
+            }
+            else Console.WriteLine(number);
+        }
 
+        //4. Exit 
+        public static void Exit()
+        {
+            Environment.Exit(0);
+        }
     }
 }
