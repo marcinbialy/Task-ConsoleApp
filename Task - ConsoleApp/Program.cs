@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Task___ConsoleApp
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            // varibles
             string error = "Enter the correct number! ";
             string backToMainMenu = "You back to main menu. Choose the method number: ";
             string selectMethod = "Choose the method number: ";
             int number;
             string input;
+            
 
             //MAIN PANEL
             MainPanel();
@@ -35,7 +38,14 @@ namespace Task___ConsoleApp
                         else Console.Write(error + backToMainMenu);
                         break;
                     case "2":
-                        // 2. DeepDive
+                        Console.Write("Enter the number of folders to create: ");
+                        input = Console.ReadLine();
+                        if (int.TryParse(input, out number) && number <= 5)
+                        {
+                            DeepDive(number);
+                            Console.Write(selectMethod);
+                        }
+                        else Console.WriteLine(error + "Remember max 5 folders. " + backToMainMenu);
                         break;
                     case "3":
                         // 3. DrownItDown
@@ -79,6 +89,38 @@ namespace Task___ConsoleApp
                 Console.WriteLine("Buzz");
             }
             else Console.WriteLine(number);
+        }
+
+        //2. DeepDive
+        public static void DeepDive(int number)
+        {
+            
+            if (!Directory.Exists(FullFilePath()))
+            {
+                DirectoryInfo folder = new DirectoryInfo(FullFilePath()); // info about main path
+
+                Directory.CreateDirectory(folder.ToString()); // if 1 folder than create
+                
+
+                for (int i = 1; i < number; i++) // create subfolders in main folder, if more than one folder
+                {
+                    var v = folder.CreateSubdirectory(Guid.NewGuid().ToString());
+                    string newpath = Path.GetFullPath(v.ToString());
+                    folder = new DirectoryInfo(newpath);
+                    
+                }
+            }
+            Console.WriteLine("Done! " + number + " folder/s have been created. Check your desktop.");
+        }
+
+        // Full file path for initial folder on desktop
+        public static string FullFilePath()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // main path for desktop
+            string yourGuid = Guid.NewGuid().ToString(); // GUID Folder name
+            string pathToCreate = Path.Combine(path, yourGuid); // path to first folder with GUID name
+
+            return pathToCreate;
         }
 
         //4. Exit 
