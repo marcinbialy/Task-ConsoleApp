@@ -44,7 +44,7 @@ namespace Task___ConsoleApp
                     case "2":
                         Console.Write("Enter the number of folders to create: ");
                         input = Console.ReadLine();
-                        if (int.TryParse(input, out number) && number <= 5)
+                        if (int.TryParse(input, out number) && number > 0 && number <= 5)
                         {
                             p.DeepDive(number);
                             Console.Write(selectMethod);
@@ -57,7 +57,7 @@ namespace Task___ConsoleApp
                     case "3":
                         Console.Write("Enter the folder level to create the file: ");
                         input = Console.ReadLine();
-                        if (int.TryParse(input, out number) && number <= 5)
+                        if (int.TryParse(input, out number) && number > 0 && number <= 5)
                         {
                             p.DrownItDown(number);
                             Console.Write(selectMethod);
