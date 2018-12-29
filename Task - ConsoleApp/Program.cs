@@ -32,7 +32,7 @@ namespace Task___ConsoleApp
                     case "1":
                         Console.Write("Select a number in the range of 1-1000: ");
                         input = Console.ReadLine();
-                        if (int.TryParse(input, out number) && number <= 1000)
+                        if (int.TryParse(input, out number) && number > 0 && number <= 1000)
                         {
                             FizzBuzz(number);
                             Console.WriteLine(selectMethod);
