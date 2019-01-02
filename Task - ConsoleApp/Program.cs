@@ -30,15 +30,17 @@ namespace Task___ConsoleApp
                 switch (choise)
                 {
                     case "1":
-                        Console.Write("Select a number in the range of 1-1000: ");
+                        Console.Write("Select a number in the range of 0-1000: ");
                         input = Console.ReadLine();
-                        if (int.TryParse(input, out number) && number > 0 && number <= 1000)
+                        if (int.TryParse(input, out number) && number >= 0 && number <= 1000)
                         {
                             FizzBuzz(number);
                             Console.WriteLine(selectMethod);
                         }
-                        else { Console.WriteLine(error);
-                               Console.Write(backToMainMenu);
+                        else
+                        {
+                            Console.WriteLine(error);
+                            Console.Write(backToMainMenu);
                         }
                         break;
                     case "2":
@@ -49,7 +51,8 @@ namespace Task___ConsoleApp
                             p.DeepDive(number);
                             Console.Write(selectMethod);
                         }
-                        else {
+                        else
+                        {
                             Console.WriteLine(error + "Remember max 5 folders. ");
                             Console.Write(backToMainMenu);
                         }
@@ -62,8 +65,10 @@ namespace Task___ConsoleApp
                             p.DrownItDown(number);
                             Console.Write(selectMethod);
                         }
-                        else { Console.WriteLine(error);
-                               Console.Write(backToMainMenu);
+                        else
+                        {
+                            Console.WriteLine(error);
+                            Console.Write(backToMainMenu);
                         }
                         break;
                     case "4":
@@ -93,7 +98,11 @@ namespace Task___ConsoleApp
         //1. FizzBuzz
         public static void FizzBuzz(int number)
         {
-            if (number % 2 == 0 & number % 3 == 0)
+            if (number == 0)
+            {
+                Console.WriteLine("I do not divide by zero!");
+            }
+            else if (number % 2 == 0 & number % 3 == 0)
             {
                 Console.WriteLine("FizzBuzz");
             }
@@ -105,7 +114,10 @@ namespace Task___ConsoleApp
             {
                 Console.WriteLine("Buzz");
             }
-            else Console.WriteLine(number);
+            else
+            {
+                Console.WriteLine(number);
+            }
         }
 
         //2. DeepDive
@@ -154,7 +166,7 @@ namespace Task___ConsoleApp
                         {
                             //Console.WriteLine(list[i]); // path to save file
 
-                            if (!File.Exists($"{list[i]}\\empty.txt"))
+                            if (!File.Exists($"{list[i]}"+Path.DirectorySeparatorChar+"empty.txt"))
                             {
                                 File.WriteAllText(Path.Combine(list[i], "empty.txt"), " "); // create empty file
                                 Console.WriteLine("Empty file created successfully on " + number + " level!");
@@ -166,9 +178,15 @@ namespace Task___ConsoleApp
                         }
                     }
                 }
-                else Console.WriteLine("You do not have this level of folders!");
+                else
+                {
+                    Console.WriteLine("You do not have this level of folders!");
+                }
             }
-            else Console.WriteLine("If you want to create a file, first create folders with --> 2. DeepDive function ");
+            else
+            {
+                Console.WriteLine("If you want to create a file, first create folders with --> 2. DeepDive function ");
+            }
         }
 
         // File Overwriting if exsist
